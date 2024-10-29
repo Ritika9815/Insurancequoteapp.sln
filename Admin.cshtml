@@ -1,0 +1,39 @@
+public ActionResult Admin()
+{
+    var insurees = db.Insurees.Select(i => new
+    {
+        i.FirstName,
+        i.LastName,
+        i.EmailAddress,
+        i.Quote
+    }).ToList();
+
+    return View(insurees);
+}
+<!-- Admin.cshtml -->
+
+@model IEnumerable<YourNamespace.Models.Insuree>
+
+<h2>Admin View - Issued Quotes</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Quote</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var insuree in Model)
+    {
+        <tr>
+            <td>@insuree.FirstName</td>
+            <td>@insuree.LastName</td>
+            <td>@insuree.EmailAddress</td>
+            <td>@insuree.Quote.ToString("C")</td>
+        </tr>
+    }
+    </tbody>
+</table>
